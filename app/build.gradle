@@ -90,7 +90,6 @@ dependencies {
     implementation libraries.navigationUI
     implementation libraries.navigationFragment
     implementation libraries.shimmer
-    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     debugImplementation libraries.chuckDebug
     releaseImplementation libraries.chuckRelease
