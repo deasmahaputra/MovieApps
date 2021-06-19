@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/movie_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_navigation"
+    app:startDestination="@id/nav_list_movie"
+    tools:ignore="UnusedNavigation">
 
+    <fragment
+        android:id="@+id/nav_list_movie"
+        android:name="com.deas.movieapps.ui.list.ListMovieFragment"
+        android:label="ListMovieFragment" >
+
+        <argument
+            android:name="movieId"
+            app:argType="string"
+            android:defaultValue="@null"/>
+
+        <action
+            android:id="@+id/view_movie_details"
+            app:launchSingleTop="true"
+            app:destination="@id/nav_details_movie"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/nav_list_movie"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_details_movie"
+        android:name="com.deas.movieapps.ui.details.DetailMovieFragment"
+        android:label="DetailsMovieFragment" >
+
+        <argument
+            android:name="movieId"
+            app:argType="string"
+            android:defaultValue="@null"/>
+
+    </fragment>
 </navigation>

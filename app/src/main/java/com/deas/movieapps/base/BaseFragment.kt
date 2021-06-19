@@ -10,6 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.deas.movieapps.di.component.AppComponent
+//import com.deas.movieapps.di.component.AppComponent
 import dagger.android.support.AndroidSupportInjection
 
 /**
@@ -20,7 +21,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
 
     private lateinit var mViewDataBinding: T
     private var mViewModel: V? = null
-
 
     fun getViewDataBinding(): T = mViewDataBinding
 
@@ -56,11 +56,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
         AndroidSupportInjection.inject(this)
     }
 
-
-    interface Callback {
-        fun onFragmentAttached()
-        fun onFragmentDetached(tag: String)
-    }
 
     protected fun showSimpleAlertDialog(title: String?, message: String) {
         val builder = context?.let { AlertDialog.Builder(it) }
