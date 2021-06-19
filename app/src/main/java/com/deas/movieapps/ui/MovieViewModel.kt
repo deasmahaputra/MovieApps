@@ -1,5 +1,6 @@
 package com.deas.movieapps.ui
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +23,7 @@ class MovieViewModel @Inject constructor(
     private val apiService: ApiService) : ViewModel(){
 
     private val compositeDisposable = CompositeDisposable()
-   // private val localDao by lazy { LocalDatabase.getInstance()?.localDao() }
+    private val context = getContext()
 
     private val _movieList = MutableLiveData<Resource<MovieListResponse>>()
     val movieList : LiveData<Resource<MovieListResponse>> = _movieList

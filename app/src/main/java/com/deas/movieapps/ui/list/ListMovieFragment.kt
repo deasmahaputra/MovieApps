@@ -3,8 +3,10 @@ package com.deas.movieapps.ui.list
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.deas.movieapps.BR
 import com.deas.movieapps.R
@@ -12,6 +14,7 @@ import com.deas.movieapps.base.BaseFragment
 import com.deas.movieapps.common.PaginationScrollListener
 import com.deas.movieapps.databinding.FragmentListMovieBinding
 import com.deas.movieapps.network.Status
+import com.deas.movieapps.room.LocalDatabase
 import com.deas.movieapps.ui.MovieViewModel
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -38,6 +41,7 @@ class ListMovieFragment : BaseFragment<FragmentListMovieBinding, MovieViewModel>
     private lateinit var layoutManager  : GridLayoutManager
     private lateinit var adapter : MovieListAdapter
     private var defPage = 1
+    private val localDao by lazy { LocalDatabase.getInstance(requireContext())?.localDao() }
 
     override fun getViewModel(): MovieViewModel {
         viewModel = ViewModelProviders.of(this, factoryModel).get(MovieViewModel::class.java)
@@ -73,7 +77,8 @@ class ListMovieFragment : BaseFragment<FragmentListMovieBinding, MovieViewModel>
     }
 
     override fun itemClicked(movieId: Int) {
-
+        val bundle = bundleOf("movieId" to movieId.toString())
+        view?.findNavController()?.navigate(R.id.view_movie_details, bundle)
     }
 
     private fun scrollData(): PaginationScrollListener {
