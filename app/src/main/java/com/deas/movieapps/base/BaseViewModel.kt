@@ -8,9 +8,8 @@ import java.lang.ref.WeakReference
  * Created by igede@awantunai.com on 19/06/21.
  */
 
-abstract class BaseViewModel<N>: ViewModel(){
+abstract class BaseViewModel: ViewModel(){
 
-    private lateinit var navigator: WeakReference<N>
     val compositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
@@ -18,9 +17,4 @@ abstract class BaseViewModel<N>: ViewModel(){
         super.onCleared()
     }
 
-    fun setNavigator(navigator: N) {
-        this.navigator = WeakReference(navigator)
-    }
-
-    fun getNavigator(): N = navigator.get()!!
 }

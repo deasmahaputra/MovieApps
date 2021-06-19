@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 import com.deas.movieapps.di.component.AppComponent
 import dagger.android.AndroidInjection
 
@@ -11,7 +12,7 @@ import dagger.android.AndroidInjection
  * Created by igede@awantunai.com on 19/06/21.
  */
 
-abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>>() : AppCompatActivity() {
+abstract class BaseActivity<T : ViewDataBinding, V : ViewModel>() : AppCompatActivity() {
 
     private lateinit var mViewDataBinding: T
     private var mViewModel: V? = null

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import com.deas.movieapps.di.component.AppComponent
 import dagger.android.support.AndroidSupportInjection
 
@@ -15,7 +16,7 @@ import dagger.android.support.AndroidSupportInjection
  * Created by igede@awantunai.com on 19/06/21.
  */
 
-abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
 
     private lateinit var mViewDataBinding: T
     private var mViewModel: V? = null
