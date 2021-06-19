@@ -1,21 +1,18 @@
 package com.deas.movieapps
 
-import org.junit.ClassRule
-import org.junit.Rule
-import org.junit.runner.RunWith
-import org.mockito.runners.MockitoJUnitRunner
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
 import com.deas.movieapps.network.ApiService
 import com.deas.movieapps.network.NetworkService
-import com.deas.movieapps.network.response.MovieListResponse
 import com.deas.movieapps.ui.MovieViewModel
 import com.nhaarman.mockitokotlin2.spy
-import io.reactivex.Observable
 import org.junit.Before
+import org.junit.ClassRule
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.runners.MockitoJUnitRunner
 
 /**
  * Created by igede@awantunai.com on 19/06/21.

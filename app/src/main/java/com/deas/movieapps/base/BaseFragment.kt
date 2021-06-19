@@ -1,5 +1,6 @@
 package com.deas.movieapps.base
 
+//import com.deas.movieapps.di.component.AppComponent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.deas.movieapps.custom.DialogMovie
 import com.deas.movieapps.di.component.AppComponent
-//import com.deas.movieapps.di.component.AppComponent
 import dagger.android.support.AndroidSupportInjection
 
 /**
@@ -21,6 +22,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
 
     private lateinit var mViewDataBinding: T
     private var mViewModel: V? = null
+    private var progressDialog: DialogMovie? = null
 
     fun getViewDataBinding(): T = mViewDataBinding
 
@@ -33,7 +35,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
         performDataBinding()
     }
 
-    protected fun getAppComponent(): AppComponent = (activity?.application as MovieApplication).appComponent
+    protected fun getAppComponent(): AppComponent =
+        (activity?.application as MovieApplication).appComponent
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +44,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mViewDataBinding = DataBindingUtil.inflate(
-            inflater, getLayoutId(), container, false)
+            inflater, getLayoutId(), container, false
+        )
         performDependencyInjection()
         return mViewDataBinding.root
     }
@@ -63,6 +67,22 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : Fragment() {
         builder?.setMessage(message)
         builder?.setPositiveButton("Ok", null)
         builder?.show()
+    }
+
+    fun showProgressDialog(message: String = "Wait Please") {
+        if (progressDialog == null) {
+            progressDialog = DialogMovie.Builder(requireActivity())
+                .setMessage(message).build()
+        }
+        if (progressDialog?.isShowing == false) progressDialog?.show()
+
+    }
+
+    fun dismissProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog?.dismiss()
+            progressDialog = null
+        }
     }
 
 }
