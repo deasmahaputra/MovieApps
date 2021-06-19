@@ -1,8 +1,5 @@
 package com.deas.movieapps.network.response
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
 /**
  * Created by igede@awantunai.com on 19/06/21.
  */

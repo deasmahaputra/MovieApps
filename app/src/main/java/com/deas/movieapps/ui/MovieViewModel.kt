@@ -9,7 +9,9 @@ import com.deas.movieapps.network.NetworkError
 import com.deas.movieapps.network.Resource
 import com.deas.movieapps.network.response.DetailMovieResponse
 import com.deas.movieapps.network.response.MovieListResponse
+import com.deas.movieapps.room.LocalDatabase
 import io.reactivex.disposables.CompositeDisposable
+import java.security.AccessController.getContext
 import javax.inject.Inject
 
 /**
@@ -20,6 +22,7 @@ class MovieViewModel @Inject constructor(
     private val apiService: ApiService) : ViewModel(){
 
     private val compositeDisposable = CompositeDisposable()
+   // private val localDao by lazy { LocalDatabase.getInstance()?.localDao() }
 
     private val _movieList = MutableLiveData<Resource<MovieListResponse>>()
     val movieList : LiveData<Resource<MovieListResponse>> = _movieList
