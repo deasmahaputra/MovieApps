@@ -1,45 +1,106 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
-
+    buildToolsVersion "29.0.1"
     defaultConfig {
         applicationId "com.deas.movieapps"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            buildConfigField 'String', 'ENDPOINT', "${endPoint}"
+            buildConfigField 'String', 'APIKEY', "${apiKey}"
+            buildConfigField 'String', 'GOOGLEAPIKEY', "${googleApiKey}"
+
+        }
+
         release {
             minifyEnabled false
+            buildConfigField 'String', 'ENDPOINT', "${endPoint}"
+            buildConfigField 'String', 'APIKEY', "${apiKey}"
+            buildConfigField 'String', 'GOOGLEAPIKEY', "${googleApiKey}"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        dexOptions {
+            matchingFallbacks = ['release', 'debug']
+        }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+
+    dataBinding{
+        enabled = true
     }
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation language.kotlin
+    implementation language.kotlinjre
+    implementation language.kotlinreflect
+
+    implementation supportDependencies.multidex
+    implementation supportDependencies.support
+    implementation supportDependencies.appcompat
+    implementation supportDependencies.design
+    implementation supportDependencies.percent
+    implementation supportDependencies.cardview
+    implementation supportDependencies.recyclerview
+    implementation supportDependencies.customtabs
+    implementation supportDependencies.constraintLayout
+
+    implementation libraries.dagger
+    kapt libraries.daggercompiler
+    kapt libraries.daggerandroidproces
+    implementation libraries.daggerandroidsupport
+    implementation libraries.rxandroid
+    implementation libraries.rxjava
+    implementation libraries.retrofit
+    implementation libraries.retrofitrx
+    implementation libraries.retrofitgson
+    implementation libraries.okhttp
+    implementation libraries.okhttplogging
+    implementation libraries.glide
+    implementation libraries.glideokHttp
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation libraries.coroutines
+
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+    implementation jatpack.extension
+    implementation jatpack.lifecycle
+
+
+    implementation libraries.rxRelay
+    implementation libraries.viewpager2
+    implementation libraries.material
+
+    implementation libraries.navigationUI
+    implementation libraries.navigationFragment
+    implementation libraries.shimmer
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    debugImplementation libraries.chuckDebug
+    releaseImplementation libraries.chuckRelease
+
+    testImplementation testLibraries.junit
+    testImplementation testLibraries.mockito
+
+    androidTestImplementation(testLibraries.espresso, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    androidTestImplementation testLibraries.mockito
 }
